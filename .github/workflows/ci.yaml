@@ -15,7 +15,7 @@ jobs:
     env:
       ARM64_DIR: target/linux/arm64
       AMD64_DIR: target/linux/amd64
-      EXECUTABLE_NAME: wrapper_gen  # Remplacez par le nom de votre exécutable
+      EXECUTABLE_NAME: command_runner  # Remplacez par le nom de votre exécutable
 
     steps:
       - name: Checkout code
