@@ -5,7 +5,7 @@ FROM cfssl/cfssl:v1.6.5
 WORKDIR /app
 
 # Définit le nom de l'exécutable (qui devrait être dans un dossier en dehors du contexte)
-ARG EXECUTABLE_NAME=wrapper_gen
+ARG EXECUTABLE_NAME=command_runner
 
 # Architecture de la plateforme cible
 ARG TARGETPLATFORM
@@ -17,4 +17,4 @@ ARG BINARY_DIR
 # Veuillez remplacer `/path/to/external/binaries` par le chemin réel vers les fichiers
 COPY ./build/build-artifacts/$TARGETARCH/$EXECUTABLE_NAME /app/$EXECUTABLE_NAME
 # Définition du point d'entrée
-ENTRYPOINT ["/app/wrapper_gen"]
+ENTRYPOINT ["/app/command_runner"]
