@@ -53,9 +53,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image (main)
         env:
           DOCKER_BUILDKIT: 1
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/arm64,linux/amd64 -t kerneltzo/command_runner:latest --push .
+          docker buildx build --file ./docker/Dockerfile.main --platform linux/arm64,linux/amd64 -t kerneltzo/command_runner:latest --push .
+
+      - name: Build and push Docker image (cfssl)
+        env:
+          DOCKER_BUILDKIT: 1
+        run: |
+          docker buildx create --use
+          docker buildx build --file ./docker/Dockerfile.cfssl --platform linux/arm64,linux/amd64 -t kerneltzo/command_runner:cfssl --push .
