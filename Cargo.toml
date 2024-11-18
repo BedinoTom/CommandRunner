@@ -1,5 +1,5 @@
 [package]
-name = "wrapper_gen"
+name = "command_runner"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,5 +9,5 @@ serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
 
 [[bin]]
-name = "wrapper_gen"
+name = "command_runner"
 path = "src/main.rs"
