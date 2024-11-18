@@ -13,6 +13,12 @@ struct Params {
     parameters: Vec<std::collections::HashMap<String, String>>, // Un tableau de maps pour chaque commande
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+struct Config {
+    command_config_file: String,
+    parameters_config_file: String,
+}
+
 // Fonction pour lire un fichier JSON
 fn read_json_file<T: for<'de> serde::Deserialize<'de>>(file_path: &str) -> T {
     let file_content = fs::read_to_string(file_path).expect("Failed to read file");
@@ -60,12 +66,14 @@ fn execute_command(command: &str) {
 fn main() {
     let optional_value = option_env!("CONFIG_FILE");
     let file_path = optional_value
-        .unwrap_or("data/test.json")
+        .unwrap_or("./config.json")
         .to_string().to_owned();
 
+    let config: Config = read_json_file(&file_path);
+
     // Lire les fichiers JSON
-    let command_templates: CommandTemplate = read_json_file("./data/commands.json");
-    let params: Params = read_json_file("./data/params.json");
+    let command_templates: CommandTemplate = read_json_file(config.command_config_file.as_str());
+    let params: Params = read_json_file(config.parameters_config_file.as_str());
 
     // Vérification que les tailles des deux tableaux sont identiques
     if command_templates.commands.len() != params.parameters.len() {
