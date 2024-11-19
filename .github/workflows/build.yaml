@@ -103,6 +103,7 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx build --file ./docker/Dockerfile.main --platform linux/arm64,linux/amd64 --tag kerneltzo/command_runner:main-${{ github.run_number }} --push .
+          docker tag kerneltzo/command_runner:main-${{ github.run_number }} kerneltzo/command_runner:main-dev
           docker push kerneltzo/command_runner:main-dev
 
       - name: Build and Push Docker image (cfssl-dev)
@@ -111,6 +112,7 @@ jobs:
         run: |
           docker buildx create --use
           docker buildx build --file ./docker/Dockerfile.cfssl --platform linux/arm64,linux/amd64 --tag kerneltzo/command_runner:cfssl-${{ github.run_number }} --push .
+          docker tag kerneltzo/command_runner:cfssl-${{ github.run_number }} kerneltzo/command_runner:cfssl-dev
           docker push kerneltzo/command_runner:cfssl-dev
 
       - name: Upload Docker images as OCI artifacts
