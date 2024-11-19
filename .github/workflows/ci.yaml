@@ -144,7 +144,7 @@ jobs:
           DOCKER_BUILDKIT: 1
         run: |
           docker buildx create --use
-          docker buildx imagetools create build/main.tar --tag kerneltzo/command_runner:latest
+          docker buildx imagetools create -f build/main.tar --tag kerneltzo/command_runner:latest
           docker buildx imagetools push kerneltzo/command_runner:latest
 
       - name: Push Docker image (cfssl)
@@ -152,5 +152,5 @@ jobs:
           DOCKER_BUILDKIT: 1
         run: |
           docker buildx create --use
-          docker buildx imagetools create build/cfssl.tar --tag kerneltzo/command_runner:cfssl
+          docker buildx imagetools create -f build/cfssl.tar --tag kerneltzo/command_runner:cfssl
           docker buildx imagetools push kerneltzo/command_runner:cfssl
