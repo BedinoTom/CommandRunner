@@ -1,20 +1,50 @@
 mod config;
 mod utils;
 
+use log::{error, info, LevelFilter};
 use config::{CommandTemplate, Config, Params, read_json_file};
 use utils::{execute_command, replace_templates};
 
 fn main() {
+    env_logger::builder().filter_level(LevelFilter::Info).init();
+
     let optional_value = option_env!("CONFIG_FILE");
     let file_path = optional_value
         .unwrap_or("./config.json")
         .to_string().to_owned();
 
-    let config: Config = read_json_file(&file_path);
+    let config: Config = match read_json_file::<Config>(&file_path) {
+        Ok(config) => {
+            info!("Configuration loaded successfully: {:?}", config);
+            config
+        }
+        Err(err) => {
+            error!("Critical error: failed to load configuration: {}", err);
+            panic!("Failed to load configuration. Exiting."); // Arrête le programme proprement
+        }
+    };
 
     // Lire les fichiers JSON
-    let command_templates: CommandTemplate = read_json_file(config.get_command_config_file().as_str());
-    let params: Params = read_json_file(config.get_parameters_config_file().as_str());
+    let command_templates: CommandTemplate = match read_json_file::<CommandTemplate>(config.get_command_config_file().as_str()) {
+        Ok(command_templates) => {
+            info!("Command templates loaded successfully: {:?}", command_templates);
+            command_templates
+        }
+        Err(err) => {
+            error!("Critical error: failed to commands file: {}", err);
+            panic!("Failed to load configuration. Exiting."); // Arrête le programme proprement
+        }
+    };
+    let params: Params = match read_json_file::<Params>(config.get_parameters_config_file().as_str()) {
+        Ok(params) => {
+            info!("Parameters loaded successfully: {:?}", params);
+            params
+        }
+        Err(err) => {
+            error!("Critical error: failed to params file: {}", err);
+            panic!("Failed to load configuration. Exiting."); // Arrête le programme proprement
+        }
+    };
 
     // Vérification que les tailles des deux tableaux sont identiques
     if command_templates.get_commands().len() != params.get_parameters().len() {
