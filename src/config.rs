@@ -41,6 +41,6 @@ impl Config {
 
 // Fonction pour lire un fichier JSON
 pub fn read_json_file<T: for<'de> serde::Deserialize<'de>>(file_path: &str) -> T {
-    let file_content = fs::read_to_string(file_path).expect("Failed to read file");
-    serde_json::from_str(&file_content).expect("Failed to parse JSON")
+    let file_content = fs::read_to_string(file_path).expect(format!("Failed to read file: {}", file_path).as_str());
+    serde_json::from_str(&file_content).expect(format!("Failed to parse JSON file: {}", file_path).as_str())
 }
