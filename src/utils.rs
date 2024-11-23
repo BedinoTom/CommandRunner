@@ -36,5 +36,6 @@ pub fn execute_command(command: &str) {
         println!("Command '{}' executed successfully", command);
     } else {
         println!("Command '{}' failed to execute", command);
+        panic!("Failed to execute command. Exiting.");
     }
 }
