@@ -1,6 +1,7 @@
 mod config;
 mod utils;
 
+use std::env;
 use log::{error, info, LevelFilter};
 use config::{CommandTemplate, Config, Params, read_json_file};
 use utils::{execute_command, replace_templates};
@@ -8,10 +9,7 @@ use utils::{execute_command, replace_templates};
 fn main() {
     env_logger::builder().filter_level(LevelFilter::Info).init();
 
-    let optional_value = option_env!("CONFIG_FILE");
-    let file_path = optional_value
-        .unwrap_or("./config.json")
-        .to_string().to_owned();
+    let file_path = env::var("CONFIG_FILE").unwrap_or_else(|e| "config.json".to_string());
 
     let config: Config = match read_json_file::<Config>(&file_path) {
         Ok(config) => {
