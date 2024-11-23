@@ -158,15 +158,15 @@ jobs:
 
       - name: Pull Docker images
         run: |
-          docker pull kerneltzo/command_runner:arm64
-          docker pull kerneltzo/command_runner:amd64
+          docker pull kerneltzo/command_runner:main-dev
+          docker pull kerneltzo/command_runner:cfssl-dev
 
       - name: Retag images
         run: |
-          docker tag kerneltzo/command_runner:arm64 kerneltzo/command_runner:latest-arm64
-          docker tag kerneltzo/command_runner:amd64 kerneltzo/command_runner:latest-amd64
+          docker tag kerneltzo/command_runner:main-dev kerneltzo/command_runner:main-latest
+          docker tag kerneltzo/command_runner:cfssl-dev kerneltzo/command_runner:cfssl-latest
 
       - name: Push retagged images
         run: |
-          docker push kerneltzo/command_runner:latest-arm64
-          docker push kerneltzo/command_runner:latest-amd64
+          docker push kerneltzo/command_runner:main-latest
+          docker push kerneltzo/command_runner:cfssl-latest
