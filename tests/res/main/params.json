@@ -1,0 +1,13 @@
+{
+  "parameters": [
+    {
+      "name": "Alice"
+    },
+    {
+      "new_folder": "/home/alice"
+    },
+    {
+      "directory": "/home/alice"
+    }
+  ]
+}

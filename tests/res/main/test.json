@@ -1,0 +1,4 @@
+{
+    "command_config_file": "/config/commands.json",
+    "parameters_config_file": "/config/params.json"
+}

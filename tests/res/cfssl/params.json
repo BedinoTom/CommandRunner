@@ -1,0 +1,13 @@
+{
+  "parameters": [
+    {
+      "file_path_folder": "/config/ca-csr.json"
+    },
+    {
+      "ca_file": "ca.pem"
+    },
+    {
+      "ca_key_file": "ca-key.pem"
+    }
+  ]
+}

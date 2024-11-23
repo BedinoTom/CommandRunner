@@ -15,6 +15,7 @@ ARG BINARY_DIR
 
 # Copie l'exécutable en fonction de l'architecture cible
 # Veuillez remplacer `/path/to/external/binaries` par le chemin réel vers les fichiers
-COPY ./build/build-artifacts/$TARGETARCH/$EXECUTABLE_NAME /app/$EXECUTABLE_NAME
+COPY ./build/build-artifacts/$TARGETARCH/$EXECUTABLE_NAME /def/$EXECUTABLE_NAME
+RUN chmod +x /def/$EXECUTABLE_NAME
 # Définition du point d'entrée
-ENTRYPOINT ["/app/command_runner"]
+ENTRYPOINT ["/def/command_runner"]
