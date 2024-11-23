@@ -9,7 +9,7 @@ use utils::{execute_command, replace_templates};
 fn main() {
     env_logger::builder().filter_level(LevelFilter::Info).init();
 
-    let file_path = env::var("CONFIG_FILE").unwrap_or_else(|e| "config.json".to_string());
+    let file_path = env::var("CONFIG_FILE").unwrap_or_else(|_e| "config.json".to_string());
 
     let config: Config = match read_json_file::<Config>(&file_path) {
         Ok(config) => {
