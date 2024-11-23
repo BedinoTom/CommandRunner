@@ -4,10 +4,10 @@
       "name": "Alice"
     },
     {
-      "directory": "./home/alice"
+      "new_folder": "/home/alice"
     },
     {
-      "new_folder": "./home/alice/new_folder"
+      "directory": "/home/alice"
     }
   ]
 }

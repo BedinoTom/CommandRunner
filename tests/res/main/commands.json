@@ -1,7 +1,7 @@
 {
   "commands": [
-    "echo Hello, {name}!",
-    "ls {directory}",
-    "mkdir {new_folder}"
+    "echo Hello, {name}! | tee /tmp/hello.txt",
+    "mkdir {new_folder}",
+    "ls {directory}"
   ]
 }

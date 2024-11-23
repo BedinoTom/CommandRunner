@@ -1,13 +1,13 @@
 {
   "parameters": [
     {
-      "name": "Alice"
+      "file_path_folder": "/config/ca-csr.json"
     },
     {
-      "directory": "./home/alice"
+      "ca_file": "ca.pem"
     },
     {
-      "new_folder": "./home/alice/new_folder"
+      "ca_key_file": "ca-key.pem"
     }
   ]
 }

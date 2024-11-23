@@ -1,7 +1,7 @@
 {
   "commands": [
-    "echo Hello, {name}!",
-    "ls {directory}",
-    "mkdir {new_folder}"
+    "cfssl gencert -initca {file_path_folder} | cfssljson -bare ca",
+    "ls {ca_file}",
+    "ls {ca_key_file}"
   ]
 }
