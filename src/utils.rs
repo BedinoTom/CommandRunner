@@ -25,6 +25,7 @@ pub fn replace_templates(command: &str, params: &std::collections::HashMap<Strin
 }
 
 // Fonction pour exécuter une commande
+
 pub fn execute_command(command: &str) {
     // Sépare les commandes par les pipes
     let commands: Vec<&str> = command.split('|').map(|s| s.trim()).collect();
@@ -32,7 +33,7 @@ pub fn execute_command(command: &str) {
     // Stocke la sortie de la commande précédente
     let mut previous_output = None;
 
-    for cmd in commands {
+    for (i, cmd) in commands.iter().enumerate() {
         // Sépare la commande et ses arguments
         let mut parts = cmd.split_whitespace();
         let program = parts.next().expect("Commande invalide !");
@@ -41,8 +42,18 @@ pub fn execute_command(command: &str) {
         let mut command_process = Command::new(program)
             .args(args)
             .stdin(previous_output.take().map_or(Stdio::inherit(), Stdio::from)) // Utilise l'entrée standard précédente
+            .stdout(if i < commands.len() - 1 {
+                Stdio::piped() // Capture la sortie pour la commande suivante
+            } else {
+                Stdio::inherit() // Dernière commande affiche directement sa sortie
+            })
             .spawn()
             .expect("Échec de l'exécution de la commande");
+
+        // Capture la sortie standard si ce n'est pas la dernière commande
+        if i < commands.len() - 1 {
+            previous_output = Some(command_process.stdout.take().unwrap());
+        }
 
         // Attendre la fin de chaque commande
         let status = command_process.wait().expect("Échec de l'attente de la commande");
@@ -53,3 +64,4 @@ pub fn execute_command(command: &str) {
 
     println!("Toutes les commandes ont été exécutées avec succès !");
 }
+
