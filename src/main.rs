@@ -60,6 +60,7 @@ fn main() {
             }
             Err(e) => {
                 eprintln!("Error in command {}: {}", i + 1, e);
+                panic!("Failed to execute command. Exiting."); // Arrête le programme proprement
             }
         }
     }
